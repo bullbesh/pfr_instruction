@@ -20,7 +20,11 @@ dp = Dispatcher(bot, storage=storage)
 @dp.message_handler(commands=["start"])
 async def send_welcome(message):
     await message.answer(
-        "ПРИВЕТСТВИЕ",
+        "Добрый день!\n\n"
+        "Вы готовитесь к пенсии?\n"
+        "Или хотите узнать сколько у вас стажа?\n"
+        "Как быстро зарегистрироваться на Госуслугах?\n\n"
+        "Наш чат-бот подскажет, как это сделать. Начнём?",
         reply_markup=kb.agree_markup,
     )
 
@@ -46,10 +50,55 @@ async def send_pension_willingness(message):
 @dp.message_handler(TextFilter(equals=kb.MONTH_PERIOD_BUTTON))
 async def send_month_period(message):
     await message.answer(
-        "Текст если остался месяц до пенсии",
-        reply_markup=kb.pension_documents_markup,
+        "Выберите раздел",
+        reply_markup=kb.pension_option_markup,
     )
 
+@dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
+async def send_month_period(message):
+    from pension import WHEN_APPLY
+
+    await message.answer(
+        WHEN_APPLY,
+        reply_markup=kb.pension_option_markup,
+    )
+
+
+@dp.message_handler(TextFilter(equals=kb.DOCUMENTS_MADE))
+async def send_documents_choice_positive(message):
+    from pension import PENSION_MOHTH_DOCUMENTS_DONE
+
+    await message.answer(
+        PENSION_MOHTH_DOCUMENTS_DONE,
+        reply_markup=kb.when_and_how_apply,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.HOW_APPLY_BUTTON))
+async def send_ways_to_apply(message):
+    from pension import WAYS_TO_APPLY
+
+    await message.answer(
+        WAYS_TO_APPLY,
+        reply_markup=kb.pension_option_markup,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
+async def send_when_apply(message):
+    from pension import WHEN_APPLY
+
+    await message.answer(
+        WHEN_APPLY,
+        reply_markup=kb.main_markup,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.DOCUMENTS_NOT_MADE))
+async def send_documents_choice_negative(message):
+    from pension import PENSION_MOHTH_DOCUMENTS_NOT_DONE
+
+    await message.answer(
+        PENSION_MOHTH_DOCUMENTS_NOT_DONE,
+        reply_markup=kb.when_and_how_apply,
+    )
 
 @dp.message_handler(TextFilter(equals=kb.YEAR_PERIOD_BUTTON))
 async def send_year_period(message):
@@ -80,6 +129,23 @@ async def send_schedule(message):
         reply_markup=kb.need_documents_markup,
     )
 
+@dp.message_handler(TextFilter(equals=kb.YEARLY_ATTENTION_BUTTON))
+async def send_important_info(message):
+    from pension import YEARLY_ATTENTION
+
+    await message.answer(
+        YEARLY_ATTENTION,
+        reply_markup=kb.need_documents_markup,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.MONTH_ATTENTION_BUTTON))
+async def send_important_info(message):
+    from pension import MONTH_ATTENTION
+
+    await message.answer(
+        MONTH_ATTENTION,
+        reply_markup=kb.pension_option_markup,
+    )
 
 @dp.message_handler(TextFilter(equals=kb.BACK_BUTTON))
 async def send_back(message):
