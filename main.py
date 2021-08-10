@@ -147,6 +147,31 @@ async def send_important_info(message):
         reply_markup=kb.pension_option_markup,
     )
 
+@dp.message_handler(TextFilter(equals=kb.GOSUSLUGI_BUTTON))
+async def send_gosuslugi_registration(message):
+    await message.answer(
+        "Выберите вариант регистрации",
+        reply_markup=kb.gosuslugi_registration_markup,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.MFC_REGISTRATION_BUTTON))
+async def send_mfc_registration(message):
+    from gosuslugi import MFC_REGISTRATION
+
+    await message.answer(
+        MFC_REGISTRATION,
+        reply_markup=kb.gosuslugi_registration_markup,
+    )
+
+@dp.message_handler(TextFilter(equals=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON))
+async def send_mobile_bank_app_registration(message):
+    from gosuslugi import MOBILE_BANK_APP_REGISTRATION
+
+    await message.answer(
+        MOBILE_BANK_APP_REGISTRATION,
+        reply_markup=kb.gosuslugi_registration_markup,
+    )
+
 @dp.message_handler(TextFilter(equals=kb.BACK_BUTTON))
 async def send_back(message):
     await message.answer(

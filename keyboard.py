@@ -20,6 +20,9 @@ DOCUMENTS_NOT_MADE = "Да. Но я не сдавал документы на п
 
 EXPERIENCE_BUTTON = "Как можно узнать свой стаж?"
 GOSUSLUGI_BUTTON = "Госуслуги. Как зарегистрироваться?"
+MFC_REGISTRATION_BUTTON = "Через МФЦ"
+MOBILE_BANK_APP_REGISTRATION_BUTTON = "Через мобильное приложение банка"
+USEFUL_GOSUSLUGI_INFO_BUTTON = ""
 
 
 agree_markup = ReplyKeyboardMarkup(resize_keyboard=True).add(
@@ -66,5 +69,11 @@ when_and_how_apply = (
     .add(KeyboardButton(MONTH_PERIOD_BUTTON))   
     .add(KeyboardButton(WHEN_APPLY_BUTTON))
     .add(KeyboardButton(HOW_APPLY_BUTTON))
+)
 
+gosuslugi_registration_markup = (
+    ReplyKeyboardMarkup(resize_keyboard=True)
+    .add(KeyboardButton(MFC_REGISTRATION_BUTTON))
+    .add(KeyboardButton(MOBILE_BANK_APP_REGISTRATION_BUTTON))
+    .add(KeyboardButton(BACK_BUTTON))
 )
