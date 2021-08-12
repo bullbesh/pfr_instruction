@@ -58,15 +58,17 @@ statement_pension_markup = (
 
 need_documents_markup = (
     ReplyKeyboardMarkup(resize_keyboard=True)
-    .row(KeyboardButton(NEED_DOCUMENTS_BUTTON),
+    .row(
+        KeyboardButton(NEED_DOCUMENTS_BUTTON),
         KeyboardButton(SCHEDULE_BUTTON),
-        KeyboardButton(YEARLY_ATTENTION_BUTTON))
+        KeyboardButton(YEARLY_ATTENTION_BUTTON),
+    )
     .add(KeyboardButton(BACK_BUTTON))
 )
 
 when_and_how_apply = (
     ReplyKeyboardMarkup(resize_keyboard=True)
-    .add(KeyboardButton(MONTH_PERIOD_BUTTON))   
+    .add(KeyboardButton(MONTH_PERIOD_BUTTON))
     .add(KeyboardButton(WHEN_APPLY_BUTTON))
     .add(KeyboardButton(HOW_APPLY_BUTTON))
 )

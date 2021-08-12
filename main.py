@@ -54,6 +54,7 @@ async def send_month_period(message):
         reply_markup=kb.pension_option_markup,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
 async def send_month_period(message):
     from pension import WHEN_APPLY
@@ -73,6 +74,7 @@ async def send_documents_choice_positive(message):
         reply_markup=kb.when_and_how_apply,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.HOW_APPLY_BUTTON))
 async def send_ways_to_apply(message):
     from pension import WAYS_TO_APPLY
@@ -81,6 +83,7 @@ async def send_ways_to_apply(message):
         WAYS_TO_APPLY,
         reply_markup=kb.pension_option_markup,
     )
+
 
 @dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
 async def send_when_apply(message):
@@ -91,6 +94,7 @@ async def send_when_apply(message):
         reply_markup=kb.main_markup,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.DOCUMENTS_NOT_MADE))
 async def send_documents_choice_negative(message):
     from pension import PENSION_MOHTH_DOCUMENTS_NOT_DONE
@@ -99,6 +103,7 @@ async def send_documents_choice_negative(message):
         PENSION_MOHTH_DOCUMENTS_NOT_DONE,
         reply_markup=kb.when_and_how_apply,
     )
+
 
 @dp.message_handler(TextFilter(equals=kb.YEAR_PERIOD_BUTTON))
 async def send_year_period(message):
@@ -129,6 +134,7 @@ async def send_schedule(message):
         reply_markup=kb.need_documents_markup,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.YEARLY_ATTENTION_BUTTON))
 async def send_important_info(message):
     from pension import YEARLY_ATTENTION
@@ -137,6 +143,7 @@ async def send_important_info(message):
         YEARLY_ATTENTION,
         reply_markup=kb.need_documents_markup,
     )
+
 
 @dp.message_handler(TextFilter(equals=kb.MONTH_ATTENTION_BUTTON))
 async def send_important_info(message):
@@ -147,12 +154,14 @@ async def send_important_info(message):
         reply_markup=kb.pension_option_markup,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.GOSUSLUGI_BUTTON))
 async def send_gosuslugi_registration(message):
     await message.answer(
         "Выберите вариант регистрации",
         reply_markup=kb.gosuslugi_registration_markup,
     )
+
 
 @dp.message_handler(TextFilter(equals=kb.MFC_REGISTRATION_BUTTON))
 async def send_mfc_registration(message):
@@ -163,6 +172,7 @@ async def send_mfc_registration(message):
         reply_markup=kb.gosuslugi_registration_markup,
     )
 
+
 @dp.message_handler(TextFilter(equals=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON))
 async def send_mobile_bank_app_registration(message):
     from gosuslugi import MOBILE_BANK_APP_REGISTRATION
@@ -171,6 +181,7 @@ async def send_mobile_bank_app_registration(message):
         MOBILE_BANK_APP_REGISTRATION,
         reply_markup=kb.gosuslugi_registration_markup,
     )
+
 
 @dp.message_handler(TextFilter(equals=kb.BACK_BUTTON))
 async def send_back(message):
