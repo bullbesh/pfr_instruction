@@ -136,7 +136,7 @@ async def send_schedule(message):
 
 
 @dp.message_handler(TextFilter(equals=kb.YEARLY_ATTENTION_BUTTON))
-async def send_important_info(message):
+async def send_important_yearly_info(message):
     from pension import YEARLY_ATTENTION
 
     await message.answer(
@@ -146,7 +146,7 @@ async def send_important_info(message):
 
 
 @dp.message_handler(TextFilter(equals=kb.MONTH_ATTENTION_BUTTON))
-async def send_important_info(message):
+async def send_important_month_info(message):
     from pension import MONTH_ATTENTION
 
     await message.answer(
