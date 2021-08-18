@@ -9,6 +9,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 import keyboard as kb
 import pension
+import images
 
 logging.basicConfig(level=logging.INFO)
 
@@ -21,18 +22,9 @@ dp = Dispatcher(bot, storage=storage)
 async def send_welcome(message):
     await message.answer(
         "Добрый день!\n\n"
-        "Вы готовитесь к пенсии?\n"
-        "Или хотите узнать сколько у вас стажа?\n"
-        "Как быстро зарегистрироваться на Госуслугах?\n\n"
-        "Наш чат-бот подскажет, как это сделать. Начнём?",
-        reply_markup=kb.agree_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.UNDERSTAND_BUTTON))
-async def send_main_keyboard(message):
-    await message.answer(
-        "Воспользуйтесь клавиатурой",
+        "С помощью чат-бота постараемся ответить на "
+        "самые популярные вопросы будущих пенсионеров.\n\n"
+        "Выберите тему:",
         reply_markup=kb.main_markup,
     )
 
@@ -55,16 +47,6 @@ async def send_month_period(message):
     )
 
 
-@dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
-async def send_month_period(message):
-    from pension import WHEN_APPLY
-
-    await message.answer(
-        WHEN_APPLY,
-        reply_markup=kb.pension_option_markup,
-    )
-
-
 @dp.message_handler(TextFilter(equals=kb.DOCUMENTS_MADE))
 async def send_documents_choice_positive(message):
     from pension import PENSION_MOHTH_DOCUMENTS_DONE
@@ -75,7 +57,7 @@ async def send_documents_choice_positive(message):
     )
 
 
-@dp.message_handler(TextFilter(equals=kb.HOW_APPLY_BUTTON))
+@dp.message_handler(TextFilter(equals=kb.PFR_APPEAL_BUTTON))
 async def send_ways_to_apply(message):
     from pension import WAYS_TO_APPLY
 
@@ -89,9 +71,13 @@ async def send_ways_to_apply(message):
 async def send_when_apply(message):
     from pension import WHEN_APPLY
 
+    photo = open("images/instruction.png", "rb")
+    await message.reply_photo(
+        photo,
+    )
     await message.answer(
         WHEN_APPLY,
-        reply_markup=kb.main_markup,
+        reply_markup=kb.pension_option_markup,
     )
 
 
@@ -121,7 +107,7 @@ async def send_need_documents(message):
 
     await message.answer(
         NEED_DOCUMENTS,
-        reply_markup=kb.need_documents_markup,
+        reply_markup=kb.pension_period_markup,
     )
 
 
