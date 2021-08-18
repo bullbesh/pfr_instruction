@@ -9,7 +9,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 import keyboard as kb
 import pension
-import images
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -71,10 +71,6 @@ async def send_ways_to_apply(message):
 async def send_when_apply(message):
     from pension import WHEN_APPLY
 
-    photo = open("images/instruction.png", "rb")
-    await message.reply_photo(
-        photo,
-    )
     await message.answer(
         WHEN_APPLY,
         reply_markup=kb.pension_option_markup,
