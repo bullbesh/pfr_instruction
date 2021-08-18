@@ -21,9 +21,9 @@ dp = Dispatcher(bot, storage=storage)
 @dp.message_handler(commands=["start"])
 async def send_welcome(message):
     await message.answer(
-        "Добрый день!\n\n"
+        "Добрый день, коллеги!\n\n"
         "С помощью чат-бота постараемся ответить на "
-        "самые популярные вопросы будущих пенсионеров.\n\n"
+        "самые популярные вопросы наших будущих пенсионеров.\n\n"
         "Выберите тему:",
         reply_markup=kb.main_markup,
     )
