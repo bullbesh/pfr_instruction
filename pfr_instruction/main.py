@@ -178,6 +178,19 @@ async def send_back(message):
     )
 
 
+@dp.message_handler()
+async def send_error(message):
+    """Send instructions in case of unrecognized message."""
+    await message.answer(
+        "Сообщение не распознано!\n\n"
+        "Для вызова функций используйте навигационные кнопки ниже!",
+    )
+    await message.answer(
+        "Перенос в главное меню...",
+        reply_markup=kb.main_markup,
+    )
+
+
 def main():
     """Run bot."""
     executor.start_polling(dp, skip_updates=True)
