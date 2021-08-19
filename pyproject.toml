@@ -1,3 +1,6 @@
+[tool.black]
+line-length = 79
+
 [tool.poetry]
 name = "pfr_instruction"
 version = "0.1.0"

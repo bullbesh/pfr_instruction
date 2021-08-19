@@ -1,0 +1,12 @@
+[flake8]
+docstring-convention=numpy
+max-complexity = 8
+import_order_style = smarkets
+ignore =
+    # ingnore blank line separator rule on long one-line docstrings
+    D205
+    # ignore period rule on one-line docstrings
+    D400
+per-file-ignores =
+    # ignore warnings about .next() because this is FSMContext method
+    pfr_instruction/main.py.py:B305
