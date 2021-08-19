@@ -160,5 +160,7 @@ async def send_statement(message):
 
 
 def main():
-    """Основная функция, отвечающая за запуск бота."""
     executor.start_polling(dp, skip_updates=True)
+
+if __name__ == '__main__':
+    main()
