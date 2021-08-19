@@ -7,9 +7,9 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters import Text as TextFilter
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-import keyboard as kb
-import pension
-
+from . import keyboard as kb
+from . import pension as pension
+from . import gosuslugi as gosuslugi
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,10 +31,8 @@ async def send_welcome(message):
 
 @dp.message_handler(TextFilter(equals=kb.PENSION_BUTTON))
 async def send_pension_willingness(message):
-    from pension import PENSION_PERIOD
-
     await message.answer(
-        PENSION_PERIOD,
+        pension.PENSION_PERIOD,
         reply_markup=kb.pension_period_markup,
     )
 
@@ -49,92 +47,74 @@ async def send_month_period(message):
 
 @dp.message_handler(TextFilter(equals=kb.DOCUMENTS_MADE))
 async def send_documents_choice_positive(message):
-    from pension import PENSION_MOHTH_DOCUMENTS_DONE
-
     await message.answer(
-        PENSION_MOHTH_DOCUMENTS_DONE,
+        pension.PENSION_MOHTH_DOCUMENTS_DONE,
         reply_markup=kb.when_and_how_apply,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.PFR_APPEAL_BUTTON))
 async def send_ways_to_apply(message):
-    from pension import WAYS_TO_APPLY
-
     await message.answer(
-        WAYS_TO_APPLY,
+        pension.WAYS_TO_APPLY,
         reply_markup=kb.pension_option_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
 async def send_when_apply(message):
-    from pension import WHEN_APPLY
-
-    photo = open("images/instruction.png", "rb")
+    photo = open("pfr_instruction/images/instruction.png", "rb")
     await message.reply_photo(photo)
     await message.answer(
-        WHEN_APPLY,
+        pension.WHEN_APPLY,
         reply_markup=kb.pension_option_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.DOCUMENTS_NOT_MADE))
 async def send_documents_choice_negative(message):
-    from pension import PENSION_MOHTH_DOCUMENTS_NOT_DONE
-
     await message.answer(
-        PENSION_MOHTH_DOCUMENTS_NOT_DONE,
+        pension.PENSION_MOHTH_DOCUMENTS_NOT_DONE,
         reply_markup=kb.when_and_how_apply,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.YEAR_PERIOD_BUTTON))
 async def send_year_period(message):
-    from pension import PENSION_YEAR_PERIOD
-
     await message.answer(
-        PENSION_YEAR_PERIOD,
+        pension.PENSION_YEAR_PERIOD,
         reply_markup=kb.need_documents_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.NEED_DOCUMENTS_BUTTON))
 async def send_need_documents(message):
-    from pension import NEED_DOCUMENTS
-
     await message.answer(
-        NEED_DOCUMENTS,
+        pension.NEED_DOCUMENTS,
         reply_markup=kb.pension_period_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.SCHEDULE_BUTTON))
 async def send_schedule(message):
-    from pension import SCHEDULE
-
     await message.answer(
-        SCHEDULE,
+        pension.SCHEDULE,
         reply_markup=kb.need_documents_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.YEARLY_ATTENTION_BUTTON))
 async def send_important_yearly_info(message):
-    from pension import YEARLY_ATTENTION
-
     await message.answer(
-        YEARLY_ATTENTION,
+        pension.YEARLY_ATTENTION,
         reply_markup=kb.need_documents_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.MONTH_ATTENTION_BUTTON))
 async def send_important_month_info(message):
-    from pension import MONTH_ATTENTION
-
     await message.answer(
-        MONTH_ATTENTION,
+        pension.MONTH_ATTENTION,
         reply_markup=kb.pension_option_markup,
     )
 
@@ -149,20 +129,16 @@ async def send_gosuslugi_registration(message):
 
 @dp.message_handler(TextFilter(equals=kb.MFC_REGISTRATION_BUTTON))
 async def send_mfc_registration(message):
-    from gosuslugi import MFC_REGISTRATION
-
     await message.answer(
-        MFC_REGISTRATION,
+        gosuslugi.MFC_REGISTRATION,
         reply_markup=kb.gosuslugi_registration_markup,
     )
 
 
 @dp.message_handler(TextFilter(equals=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON))
 async def send_mobile_bank_app_registration(message):
-    from gosuslugi import MOBILE_BANK_APP_REGISTRATION
-
     await message.answer(
-        MOBILE_BANK_APP_REGISTRATION,
+        gosuslugi.MOBILE_BANK_APP_REGISTRATION,
         reply_markup=kb.gosuslugi_registration_markup,
     )
 
@@ -183,5 +159,6 @@ async def send_statement(message):
     )
 
 
-if __name__ == "__main__":
+def main():
+    """Основная функция, отвечающая за запуск бота."""
     executor.start_polling(dp, skip_updates=True)
