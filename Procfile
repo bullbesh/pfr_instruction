@@ -1,1 +1,1 @@
-bot: python pfr_instruction
+bot: python bot.py
