@@ -1,3 +1,7 @@
+"""Module containing constants and keyboards displayed by
+the bot through main.py file.
+"""
+
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 
@@ -10,18 +14,15 @@ SCHEDULE_BUTTON = "Часы приёма фронт-офиса"
 YEARLY_ATTENTION_BUTTON = "Важная информация"
 MONTH_ATTENTION_BUTTON = "Полезная информация"
 MONTH_PERIOD_BUTTON = "До пенсии остался месяц. Подача заявления."
-DOCUMENTS_MADE = "Да. И я сдавал документы на проверку заранее"
 WHEN_APPLY_BUTTON = "Когда и как подать заявление через Госуслуги?"
 PFR_APPEAL_BUTTON = "Обращение в клиентскую службу ПФР"
 ACROSS_GOSUSLUGI = "Через личный кабинет на сайте Госуслуги"
 ACROSS_CLIENT_SERVICE = "Через клиентскую службу ПФР"
-DOCUMENTS_NOT_MADE = "Да. Но я не сдавал документы на проверку заранее"
 
 EXPERIENCE_BUTTON = "Как узнать свой стаж на сайте Госуслуг?"
 GOSUSLUGI_BUTTON = "Госуслуги. Как зарегистрироваться?"
 MFC_REGISTRATION_BUTTON = "Через МФЦ"
 MOBILE_BANK_APP_REGISTRATION_BUTTON = "Через мобильное приложение банка"
-USEFUL_GOSUSLUGI_INFO_BUTTON = ""
 
 
 main_markup = (
