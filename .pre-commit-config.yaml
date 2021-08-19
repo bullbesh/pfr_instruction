@@ -1,9 +1,4 @@
 repos:
-- repo: https://github.com/psf/black
-  rev: 21.6b0
-  hooks:
-  - id: black
-    args: ['-1 79']
 - repo: https://gitlab.com/pycqa/flake8
   rev: 3.9.2
   hooks:
