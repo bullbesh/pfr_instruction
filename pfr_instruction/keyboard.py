@@ -37,6 +37,7 @@ pension_period_markup = (
     .add(KeyboardButton(YEAR_PERIOD_BUTTON))
     .add(KeyboardButton(MONTH_PERIOD_BUTTON))
     .add(KeyboardButton(NEED_DOCUMENTS_BUTTON))
+    .add(KeyboardButton(BACK_BUTTON))
 )
 
 pension_option_markup = (
