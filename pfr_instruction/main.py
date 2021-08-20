@@ -179,7 +179,7 @@ async def send_back(message):
 
 
 @dp.message_handler()
-async def send_error(message):
+async def send_unrecognized_message(message):
     """Send instructions in case of unrecognized message."""
     await message.answer(
         "Сообщение не распознано!\n\n"
