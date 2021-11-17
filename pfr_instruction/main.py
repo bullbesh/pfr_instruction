@@ -169,9 +169,83 @@ async def send_mobile_bank_app_registration(message):
     )
 
 
+@dp.message_handler(TextFilter(equals=kb.EXPERIENCE_BUTTON))
+async def send_gosuslugi_experience(message):
+    """Send a selection about experience:
+
+    - ILS Explanation
+    - ILS discharge destiny
+    - ILS discharge guide
+    - About 2002 works
+    - Contact info
+    """
+    await message.answer(
+        "Задайте интересующий вас вопрос",
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+
+
+@dp.message_handler(TextFilter(equals=kb.ILS_EXPLANATION_BUTTON))
+async def send_ils_explanation(message):
+    """Send info about ILS."""
+    bot_instruction = open("pfr_instruction/images/bot_instruction.png", "rb")
+    await message.answer(
+        gosuslugi.ILS_EXPLANATION,
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+    await message.reply_photo(bot_instruction)
+
+
+@dp.message_handler(TextFilter(equals=kb.ILS_DISCHARGE_DESTINY_BUTTON))
+async def send_ils_discharge_destiny(message):
+    """Send info about discharge destiny."""
+    await message.answer(
+        gosuslugi.ILS_DISCHARGE_DESTINY,
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+
+
+@dp.message_handler(TextFilter(equals=kb.ILS_DISCHARGE_GUIDE_BUTTON))
+async def send_ils_discharge_guide(message):
+    """Send info about discharge guide."""
+    dischange_destiny = open(
+        "pfr_instruction/images/dischange_destiny.jpg", "rb"
+    )
+    discharge_table = open(
+        "pfr_instruction/images/discharge_table.jpg", "rb"
+    )
+
+    await message.answer(gosuslugi.ILS_DISCHARGE_GUIDE_PART_1)
+    await message.reply_photo(dischange_destiny)
+    await message.answer(gosuslugi.ILS_DISCHARGE_GUIDE_PART_2)
+    await message.reply_photo(discharge_table)
+    await message.answer(
+        gosuslugi.ILS_DISCHARGE_GUIDE_PART_3,
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+
+
+@dp.message_handler(TextFilter(equals=kb.ABOUT_2002_WORKS_BUTTON))
+async def send_info_about_2002_works(message):
+    """Send info about 2002 works."""
+    await message.answer(
+        gosuslugi.ABOUT_2002_WORKS,
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+
+
+@dp.message_handler(TextFilter(equals=kb.CONTACT_INFO_BUTTON))
+async def send_contact_info(message):
+    """Send contact info."""
+    await message.answer(
+        gosuslugi.CONTACT_INFO,
+        reply_markup=kb.gosuslugi_experience_markup,
+    )
+
+
 @dp.message_handler(TextFilter(equals=kb.BACK_BUTTON))
 async def send_back(message):
-    """Send the user to the main keyboard."""
+    """Departure user to the main keyboard."""
     await message.answer(
         "Воспользуйтесь клавиатурой",
         reply_markup=kb.main_markup,
