@@ -224,6 +224,9 @@ async def send_ils_discharge_guide(message):
         reply_markup=kb.gosuslugi_experience_markup,
     )
 
+    discharge_destiny.close()
+    discharge_table.close()
+
 
 @dp.message_handler(TextFilter(equals=kb.ABOUT_2002_WORKS_BUTTON))
 async def send_info_about_2002_works(message):
@@ -232,7 +235,6 @@ async def send_info_about_2002_works(message):
         gosuslugi.ABOUT_2002_WORKS,
         reply_markup=kb.gosuslugi_experience_markup,
     )
-
 
 @dp.message_handler(TextFilter(equals=kb.CONTACT_INFO_BUTTON))
 async def send_contact_info(message):
