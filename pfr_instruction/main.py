@@ -8,14 +8,29 @@ and displaying information to the user:
 
 import logging
 import os
+from typing import List
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.dispatcher.filters import Text as TextFilter
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+from aiogram.types.message import Message
+
+from textode import (
+    BackNode,
+    FuncNode,
+    ImageNode,
+    KeyboardNode,
+    MultiNode,
+    Node, NodeDict,
+    TextNode,
+    TO_MAIN
+)
+
 
 from . import gosuslugi as gosuslugi
 from . import keyboard as kb
 from . import pension as pension
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -24,247 +39,242 @@ storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
 
-@dp.message_handler(commands=["start"])
-async def send_welcome(message):
-    """Send a greeting with a short description of the bot."""
-    await message.answer(
-        "Добрый день, коллеги!\n\n"
+@dp.message_handler(lambda _: True)
+async def handle_text(message: Message):
+    """Handler of all text messages."""
+    node = NodeDict.get_node(message.text)
+    if node is None:
+        await message.answer("Couldn't recognize message text")
+    else:
+        await handle_node(node, message)
+
+
+async def handle_node(node: Node, message: Message):
+    if isinstance(node, MultiNode):
+        for node in node.nodes:
+            await handle_node(node, message)
+    elif isinstance(node, (FuncNode, TextNode)):
+        await message.answer(node.text)
+    elif isinstance(node, KeyboardNode):
+        keyboard = make_keyboard(node.buttons)
+        await message.answer(node.text, reply_markup=keyboard)
+    elif isinstance(node, BackNode):
+        keyboard = make_keyboard(node.get_node_to_back().buttons)
+        await message.answer(node.text, reply_markup=keyboard)
+    elif isinstance(node, ImageNode):
+        with open(node.path, mode="rb") as image:
+            await message.answer_photo(image, caption=node.caption)
+
+
+def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
+    """Create keyboard from KeyboardNode's buttons"""
+    return ReplyKeyboardMarkup(
+        [[KeyboardButton(text=node.title)] for node in node_buttons],
+        resize_keyboard=True,
+    )
+
+
+# Часы приёма фронт-офиса.
+schedule = TextNode(
+    title=kb.SCHEDULE_BUTTON,
+    text=pension.YEARLY_ATTENTION,
+)
+
+
+# Важная информация.
+yearly_attention = TextNode(
+    title=kb.YEARLY_ATTENTION_BUTTON,
+    text=pension.YEARLY_ATTENTION,
+)
+
+
+# До пенсии остался год. Проверка документов.
+year_period = KeyboardNode(
+    title=kb.YEAR_PERIOD_BUTTON,
+    text=pension.PENSION_YEAR_PERIOD,
+    buttons=[
+        schedule,
+        yearly_attention,
+        BackNode(
+            kb.BACK_BUTTON,
+            text="Воспользуйтесь клавиатурой",
+            level=TO_MAIN
+        ),
+    ],
+)
+
+
+# Когда и как подать заявление через ГосУслуги?
+when_apply = ImageNode(
+    title=kb.WHEN_APPLY_BUTTON,
+    path="pfr_instruction/images/dischange_destiny.jpg",
+    caption=pension.WHEN_APPLY,
+)
+
+
+# Обращение в клиентскую службу ПФР
+pfr_appeal = TextNode(
+    title=kb.PFR_APPEAL_BUTTON,
+    text=pension.WAYS_TO_APPLY,
+)
+
+
+# Полезная информация
+month_attention = TextNode(
+    title=kb.MONTH_ATTENTION_BUTTON,
+    text=pension.MONTH_ATTENTION,
+)
+
+
+# До пенсии остался месяц. Подача заявления.
+month_period = KeyboardNode(
+    title=kb.MONTH_PERIOD_BUTTON,
+    text="Выберите раздел",
+    buttons=[
+        when_apply,
+        pfr_appeal,
+        month_attention,
+        BackNode(
+            kb.BACK_BUTTON,
+            text="Воспользуйтесь клавиатурой",
+            level=TO_MAIN
+        ),
+    ],
+)
+
+
+# Список документов
+need_documents = TextNode(
+    title=kb.NEED_DOCUMENTS_BUTTON,
+    text=pension.NEED_DOCUMENTS,
+)
+
+
+# Готовлюсь к пенсии. С чего начать?
+pension_period = KeyboardNode(
+    title=kb.PENSION_BUTTON,
+    text="Выберите интересующий вас период до пенсии",
+    buttons=[
+        year_period,
+        month_period,
+        need_documents,
+        BackNode(
+            kb.BACK_BUTTON,
+            text="Воспользуйтесь клавиатурой",
+            level=TO_MAIN
+        ),
+    ],
+)
+
+
+mfc_registration = TextNode(
+    title=kb.MFC_REGISTRATION_BUTTON,
+    text=gosuslugi.MFC_REGISTRATION,
+)
+
+
+mobile_bank_app_registration = TextNode(
+    title=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON,
+    text=gosuslugi.MOBILE_BANK_APP_REGISTRATION,
+)
+
+
+# ГосУслуги. Как зарегистрироваться?
+gosuslugi_registration = KeyboardNode(
+    title=kb.GOSUSLUGI_BUTTON,
+    text="Выберите вариант регистрации",
+    buttons=[
+        mfc_registration,
+        mobile_bank_app_registration,
+        BackNode(
+            kb.BACK_BUTTON,
+            text="Воспользуйтесь клавиатурой",
+            level=TO_MAIN
+        ),
+    ],
+)
+
+
+# Что такое Индивидуальный лицевой счёт?
+ils_explanation = ImageNode(
+    title=kb.ILS_EXPLANATION_BUTTON,
+    path="pfr_instruction/images/bot_instruction.png",
+    caption=gosuslugi.ILS_EXPLANATION,
+)
+
+
+# Зачем нужна выписка из ИЛС?
+ils_discharge_destiny = TextNode(
+    title=kb.ILS_DISCHARGE_DESTINY_BUTTON,
+    text=gosuslugi.ILS_DISCHARGE_DESTINY,
+)
+
+
+# Как понимать выписку ИЛС?
+ils_discharge_guide = MultiNode(
+    title=(_ := kb.ILS_DISCHARGE_GUIDE_BUTTON),
+    nodes=[
+        ImageNode(_, path="pfr_instruction/images/dischange_destiny.jpg"),
+        TextNode(_, text=gosuslugi.ILS_DISCHARGE_GUIDE_PART_1),
+        ImageNode(_, path="pfr_instruction/images/discharge_table.jpg"),
+        TextNode(_, text=gosuslugi.ILS_DISCHARGE_GUIDE_PART_2),
+    ],
+)
+
+
+# Что делать, если в ИЛС нет данных о работе до 2002 года?
+about_2002_works = TextNode(
+    title=kb.ABOUT_2002_WORKS_BUTTON,
+    text=gosuslugi.ABOUT_2002_WORKS,
+)
+
+
+# Куда обратиться по пенсионным вопросам?
+contact_info = TextNode(
+    title=kb.CONTACT_INFO_BUTTON,
+    text=gosuslugi.CONTACT_INFO,
+)
+
+ils_appeal_order = TextNode(
+    title=kb.ILS_APPEAL_ORDER_BUTTON,
+    text=gosuslugi.ILS_APPEAL_GUIDE,
+)
+
+# Как узнать свой стаж на сайте ГосУслуг?
+gosuslugi_experience = KeyboardNode(
+    title=kb.EXPERIENCE_BUTTON,
+    text="Задайте интересующий вас вопрос",
+    buttons=[
+        ils_explanation,
+        ils_appeal_order,
+        ils_discharge_destiny,
+        ils_discharge_guide,
+        about_2002_works,
+        contact_info,
+        BackNode(
+            kb.BACK_BUTTON,
+            text="Воспользуйтесь клавиатурой",
+            level=TO_MAIN
+        ),
+    ],
+)
+
+
+# Начальная клавиатура
+main_node = KeyboardNode(
+    title="/start",
+    text=(
+        "Добрый день, коллеги! "
         "С помощью чат-бота постараемся ответить на "
-        "самые популярные вопросы наших будущих пенсионеров.\n\n"
-        "Выберите тему, воспользовавшись кнопками на клавиатуре:",
-        reply_markup=kb.main_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.PENSION_BUTTON))
-async def send_pension_willingness(message):
-    """Send a selection of one of two periods:
-
-    - Monthly period
-    - Yearly period
-    """
-    await message.answer(
-        pension.PENSION_PERIOD,
-        reply_markup=kb.pension_period_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.MONTH_PERIOD_BUTTON))
-async def send_month_period_functions(message):
-    """Send monthly period functions:
-
-    - When and how to apply through Gosuslugi?
-    - Contacting the PFR customer service
-    - Useful information
-    - Back
-    """
-    await message.answer(
-        "Выберите раздел",
-        reply_markup=kb.pension_option_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.PFR_APPEAL_BUTTON))
-async def send_ways_to_apply(message):
-    """Send contacting to the PFR customer service."""
-    await message.answer(
-        pension.WAYS_TO_APPLY,
-        reply_markup=kb.pension_option_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.WHEN_APPLY_BUTTON))
-async def send_when_apply(message):
-    """Send information about when and how to
-    apply through the Gosuslugi (with photo instruction).
-    """
-    photo = open("pfr_instruction/images/instruction.png", "rb")
-    await message.reply_photo(photo)
-    await message.answer(
-        pension.WHEN_APPLY,
-        reply_markup=kb.pension_option_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.YEAR_PERIOD_BUTTON))
-async def send_year_period_functions(message):
-    """Send yearly period functions:
-
-    - Front Office Reception Hours
-    - Useful information
-    - Back
-    """
-    await message.answer(
-        pension.PENSION_YEAR_PERIOD,
-        reply_markup=kb.need_documents_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.NEED_DOCUMENTS_BUTTON))
-async def send_need_documents(message):
-    """Send a list of required documents."""
-    await message.answer(
-        pension.NEED_DOCUMENTS,
-        reply_markup=kb.pension_period_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.SCHEDULE_BUTTON))
-async def send_front_office_schedule(message):
-    """Send a Front Office schedule."""
-    await message.answer(
-        pension.SCHEDULE,
-        reply_markup=kb.need_documents_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.YEARLY_ATTENTION_BUTTON))
-async def send_important_yearly_info(message):
-    """Send important information about the yearly period."""
-    await message.answer(
-        pension.YEARLY_ATTENTION,
-        reply_markup=kb.need_documents_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.MONTH_ATTENTION_BUTTON))
-async def send_important_month_info(message):
-    """Send important information about the monthly period."""
-    await message.answer(
-        pension.MONTH_ATTENTION,
-        reply_markup=kb.pension_option_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.GOSUSLUGI_BUTTON))
-async def send_gosuslugi_registration(message):
-    """Send a selection of one of two registration types:
-
-    - Via the MFC
-    - Via the bank's mobile application
-    """
-    await message.answer(
-        "Выберите вариант регистрации",
-        reply_markup=kb.gosuslugi_registration_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.MFC_REGISTRATION_BUTTON))
-async def send_mfc_registration(message):
-    """Send instructions when registering through the MFC."""
-    await message.answer(
-        gosuslugi.MFC_REGISTRATION,
-        reply_markup=kb.gosuslugi_registration_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON))
-async def send_mobile_bank_app_registration(message):
-    """Send instructions during registration
-    via the bank's mobile application.
-    """
-    await message.answer(
-        gosuslugi.MOBILE_BANK_APP_REGISTRATION,
-        reply_markup=kb.gosuslugi_registration_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.EXPERIENCE_BUTTON))
-async def send_gosuslugi_experience(message):
-    """Send a selection about experience:
-
-    - ILS Explanation
-    - ILS discharge destiny
-    - ILS discharge guide
-    - About 2002 works
-    - Contact info
-    """
-    await message.answer(
-        "Задайте интересующий вас вопрос",
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.ILS_EXPLANATION_BUTTON))
-async def send_ils_explanation(message):
-    """Send info about ILS."""
-    bot_instruction = open("pfr_instruction/images/bot_instruction.png", "rb")
-    await message.answer(
-        gosuslugi.ILS_EXPLANATION,
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-    await message.reply_photo(bot_instruction)
-
-
-@dp.message_handler(TextFilter(equals=kb.ILS_DISCHARGE_DESTINY_BUTTON))
-async def send_ils_discharge_destiny(message):
-    """Send info about discharge destiny."""
-    await message.answer(
-        gosuslugi.ILS_DISCHARGE_DESTINY,
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.ILS_DISCHARGE_GUIDE_BUTTON))
-async def send_ils_discharge_guide(message):
-    """Send info about discharge guide."""
-    dischange_destiny = open(
-        "pfr_instruction/images/dischange_destiny.jpg", "rb"
-    )
-    discharge_table = open(
-        "pfr_instruction/images/discharge_table.jpg", "rb"
-    )
-
-    await message.answer(gosuslugi.ILS_DISCHARGE_GUIDE_PART_1)
-    await message.reply_photo(dischange_destiny)
-    await message.answer(gosuslugi.ILS_DISCHARGE_GUIDE_PART_2)
-    await message.reply_photo(discharge_table)
-    await message.answer(
-        gosuslugi.ILS_DISCHARGE_GUIDE_PART_3,
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-
-    discharge_destiny.close()
-    discharge_table.close()
-
-
-@dp.message_handler(TextFilter(equals=kb.ABOUT_2002_WORKS_BUTTON))
-async def send_info_about_2002_works(message):
-    """Send info about 2002 works."""
-    await message.answer(
-        gosuslugi.ABOUT_2002_WORKS,
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-
-@dp.message_handler(TextFilter(equals=kb.CONTACT_INFO_BUTTON))
-async def send_contact_info(message):
-    """Send contact info."""
-    await message.answer(
-        gosuslugi.CONTACT_INFO,
-        reply_markup=kb.gosuslugi_experience_markup,
-    )
-
-
-@dp.message_handler(TextFilter(equals=kb.BACK_BUTTON))
-async def send_back(message):
-    """Departure user to the main keyboard."""
-    await message.answer(
-        "Воспользуйтесь клавиатурой",
-        reply_markup=kb.main_markup,
-    )
-
-
-@dp.message_handler()
-async def send_unrecognized_message(message):
-    """Send instructions in case of unrecognized message."""
-    await message.answer(
-        "Сообщение не распознано!\n\n"
-        "Для вызова функций используйте навигационные кнопки ниже!",
-    )
-    await message.answer(
-        "Перенос в главное меню...",
-        reply_markup=kb.main_markup,
-    )
+        "самые популярные вопросы наших будущих пенсионеров. "
+        "Выберите тему, воспользовавшись кнопками на клавиатуре:"
+    ),
+    buttons=[
+        pension_period,
+        gosuslugi_registration,
+        gosuslugi_experience,
+    ],
+)
 
 
 def main():

@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 pytest = "^6.2.4"
 aiogram = "^2.14.3"
+textode = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.13.0"
