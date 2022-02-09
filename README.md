@@ -36,6 +36,6 @@ poetry install
 - `BOT_TOKEN` - токен Telegram бота
 
 
-### Лицензия
+## Лицензия
 [MIT](https://github.com/bullbesh/pfr_instruction/blob/main/license.md)
 
