@@ -21,9 +21,10 @@ from textode import (
     ImageNode,
     KeyboardNode,
     MultiNode,
-    Node, NodeDict,
+    Node,
+    NodeDict,
     TextNode,
-    TO_MAIN
+    TO_MAIN,
 )
 
 
@@ -95,11 +96,7 @@ year_period = KeyboardNode(
     buttons=[
         schedule,
         yearly_attention,
-        BackNode(
-            kb.BACK_BUTTON,
-            text="Воспользуйтесь клавиатурой",
-            level=TO_MAIN
-        ),
+        BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
 )
 
@@ -134,11 +131,7 @@ month_period = KeyboardNode(
         when_apply,
         pfr_appeal,
         month_attention,
-        BackNode(
-            kb.BACK_BUTTON,
-            text="Воспользуйтесь клавиатурой",
-            level=TO_MAIN
-        ),
+        BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
 )
 
@@ -158,11 +151,7 @@ pension_period = KeyboardNode(
         year_period,
         month_period,
         need_documents,
-        BackNode(
-            kb.BACK_BUTTON,
-            text="Воспользуйтесь клавиатурой",
-            level=TO_MAIN
-        ),
+        BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
 )
 
@@ -186,11 +175,7 @@ gosuslugi_registration = KeyboardNode(
     buttons=[
         mfc_registration,
         mobile_bank_app_registration,
-        BackNode(
-            kb.BACK_BUTTON,
-            text="Воспользуйтесь клавиатурой",
-            level=TO_MAIN
-        ),
+        BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
 )
 
@@ -251,11 +236,7 @@ gosuslugi_experience = KeyboardNode(
         ils_discharge_guide,
         about_2002_works,
         contact_info,
-        BackNode(
-            kb.BACK_BUTTON,
-            text="Воспользуйтесь клавиатурой",
-            level=TO_MAIN
-        ),
+        BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
 )
 
