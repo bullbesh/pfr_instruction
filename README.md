@@ -20,8 +20,8 @@
 
 ## Реализация проекта
 - Библиотека для работы с Telegram - [aiogram](https://github.com/aiogram/aiogram)
-- Создание хендлеров для вывода сообщений - [textode](https://github.com/Masynchin/textode)
-- Облачное хранилище для автономной работы бота - [heroku](https://heroku.com)
+- Иерархия построения сообщений бота - [textode](https://github.com/Masynchin/textode)
+- Облачное хранилище для автономной работы проекта - [heroku](https://heroku.com)
 
 ## Установка проекта
 ### Зависимости
