@@ -1,18 +1,41 @@
-# Introduction
+# Telegram бот для предприятия «Северсталь»
 
-**PFR_INSTRUCTION** — Telegram-bot that can give the necessary information about pension and everything related to it.
+## **PFR Instruction** — информация о пенсии и всём, что с ней связано.
 
-### Destination
+## Предназначение
+Помощь сотрудникам отдела по пенсионным вопросам, обучение новых работников.
 
-Assistance to employees of Severstal company enterprise in informing clients in the industry, related to pensions. The bot is also able to train new workers. It's put them into work faster than usual.
+## Разделы бота
+В общей сложности бот имеет три основных раздела с функциями, которые включают полезную информацию:
+- Подготовка к пенсии
+- Стаж работника предприятия
+- Сайт "Госуслуги"
 
-### Sections of a bot
+## Как пользоваться ботом
+Адрес бота в Telegram: [@pfrinstruction_bot](https://t.me/pfrinstruction_bot)
 
-In total, the bot has three main sections with functions that include useful information:
+Весь процесс общения построен на принципе «вопрос-ответ». 
+Напишите боту в личные сообщения и выберите на клавиатуре кнопку с 
+интересующим Вас вопросом.
 
-- Information about pension
-- Work experience
-- Gosuslugi website
+## Реализация проекта
+- Библиотека для работы с Telegram - [aiogram](https://github.com/aiogram/aiogram)
+- Создание хендлеров для вывода сообщений - [textode](https://github.com/Masynchin/textode)
+- Облачное хранилище для автономной работы бота - [heroku](https://heroku.com)
 
-### License
+## Установка проекта
+### Зависимости
+Для работы с ботом нужен [Poetry](https://github.com/python-poetry/poetry)
+
+Зависимости ставятся через:
+```
+poetry install
+```
+
+### Переменные окружения
+- `BOT_TOKEN` - токен Telegram бота
+
+
+### Лицензия
 [MIT](https://github.com/bullbesh/pfr_instruction/blob/main/license.md)
+
