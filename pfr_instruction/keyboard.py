@@ -20,7 +20,7 @@ MFC_REGISTRATION_BUTTON = "Через МФЦ."
 MOBILE_BANK_APP_REGISTRATION_BUTTON = "Через мобильное приложение банка."
 
 EXPERIENCE_BUTTON = "Как узнать свой стаж на сайте Госуслуг?"
-ILS_EXPLANATION_BUTTON = "Что такое Индивидуальный лицевой счёт (выписка о стаже)?"
+ILS_EXPLANATION_BUTTON = "Что такое Индивидуальный лицевой счёт? Выписка ИЛС."
 ILS_APPEAL_ORDER_BUTTON = "Порядок обращения за выпиской ИЛС."
 ILS_DISCHARGE_GUIDE_BUTTON = "Как понимать выписку ИЛС?"
 ABOUT_2002_WORKS_BUTTON = "Что делать, если в ИЛС нет данных о работе до 2002 года?"

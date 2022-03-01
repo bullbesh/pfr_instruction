@@ -195,14 +195,10 @@ ils_explanation = TextNode(
 
 
 # Как понимать выписку ИЛС?
-ils_discharge_guide = MultiNode(
-    title=(_ := kb.ILS_DISCHARGE_GUIDE_BUTTON),
-    nodes=[
-        ImageNode(_, path="pfr_instruction/images/dischange_destiny.jpg"),
-        TextNode(_, text=gosuslugi.ILS_DISCHARGE_GUIDE_PART_1),
-        ImageNode(_, path="pfr_instruction/images/discharge_table.jpg"),
-        TextNode(_, text=gosuslugi.ILS_DISCHARGE_GUIDE_PART_2),
-    ],
+ils_discharge_guide = ImageNode(
+    title=kb.ILS_DISCHARGE_GUIDE_BUTTON,
+    path="pfr_instruction/images/dischange_destiny.jpg",
+    caption=gosuslugi.ILS_DISCHARGE_GUIDE,
 )
 
 
