@@ -75,7 +75,7 @@ def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
     )
 
 
-# Часы приёма фронт-офиса.
+# Часы работа фронт-офиса.
 schedule = TextNode(
     title=kb.SCHEDULE_BUTTON,
     text=pension.SCHEDULE,
@@ -95,6 +95,7 @@ year_period = KeyboardNode(
     text=pension.PENSION_YEAR_PERIOD,
     buttons=[
         schedule,
+        need_documents
         yearly_attention,
         BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
@@ -146,7 +147,12 @@ need_documents = TextNode(
 # Готовлюсь к пенсии. С чего начать?
 pension_period = KeyboardNode(
     title=kb.PENSION_BUTTON,
-    text="Выберите интересующий вас период до пенсии",
+    text= (
+        "За год до пенсии сдайте свои документы на проверку в ПФР "
+        "(через Фронт-офис на ул. Жукова, 4)\n"
+        "В течение месяца до пенсии отправьте заявление через госуслуги\n\n"
+        "Выберите интересующий вас период до пенсии"
+    ),
     buttons=[
         year_period,
         month_period,

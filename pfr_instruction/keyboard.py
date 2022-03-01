@@ -7,7 +7,7 @@ BACK_BUTTON = "На главную."
 PENSION_BUTTON = "Готовлюсь к пенсии. С чего начать?"
 NEED_DOCUMENTS_BUTTON = "Список документов."
 YEAR_PERIOD_BUTTON = "До пенсии остался год. Проверка документов."
-SCHEDULE_BUTTON = "Часы приёма фронт-офиса."
+SCHEDULE_BUTTON = "Часы работы Фронт-офиса."
 YEARLY_ATTENTION_BUTTON = "Важная информация."
 
 MONTH_PERIOD_BUTTON = "До пенсии остался месяц. Подача заявления."
