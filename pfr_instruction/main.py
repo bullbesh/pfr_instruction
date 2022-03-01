@@ -109,11 +109,10 @@ year_period = KeyboardNode(
 )
 
 
-# Когда и как подать заявление через ГосУслуги?
-when_apply = ImageNode(
+# Когда и как подать заявление через Госуслуги?
+when_apply = TextNode(
     title=kb.WHEN_APPLY_BUTTON,
-    path="pfr_instruction/images/dischange_destiny.jpg",
-    caption=pension.WHEN_APPLY,
+    text=pension.WHEN_APPLY,
 )
 
 
