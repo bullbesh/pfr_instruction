@@ -187,11 +187,10 @@ gosuslugi_registration = KeyboardNode(
 )
 
 
-# Что такое Индивидуальный лицевой счёт?
-ils_explanation = ImageNode(
+# Что такое Индивидуальный лицевой счёт? (выписка о стаже)
+ils_explanation = TextNode(
     title=kb.ILS_EXPLANATION_BUTTON,
-    path="pfr_instruction/images/bot_instruction.png",
-    caption=gosuslugi.ILS_EXPLANATION,
+    text=gosuslugi.ILS_EXPLANATION,
 )
 
 
