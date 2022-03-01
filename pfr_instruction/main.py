@@ -195,13 +195,6 @@ ils_explanation = ImageNode(
 )
 
 
-# Зачем нужна выписка из ИЛС?
-ils_discharge_destiny = TextNode(
-    title=kb.ILS_DISCHARGE_DESTINY_BUTTON,
-    text=gosuslugi.ILS_DISCHARGE_DESTINY,
-)
-
-
 # Как понимать выписку ИЛС?
 ils_discharge_guide = MultiNode(
     title=(_ := kb.ILS_DISCHARGE_GUIDE_BUTTON),
@@ -227,10 +220,14 @@ contact_info = TextNode(
     text=gosuslugi.CONTACT_INFO,
 )
 
-ils_appeal_order = TextNode(
+
+# Порядок обращения за выпиской ИЛС
+ils_appeal_order = ImageNode(
     title=kb.ILS_APPEAL_ORDER_BUTTON,
-    text=gosuslugi.ILS_APPEAL_GUIDE,
+    path="pfr_instruction/images/bot_instruction.png",
+    caption=gosuslugi.ILS_APPEAL_GUIDE,
 )
+
 
 # Как узнать свой стаж на сайте ГосУслуг?
 gosuslugi_experience = KeyboardNode(
@@ -239,7 +236,6 @@ gosuslugi_experience = KeyboardNode(
     buttons=[
         ils_explanation,
         ils_appeal_order,
-        ils_discharge_destiny,
         ils_discharge_guide,
         about_2002_works,
         contact_info,
