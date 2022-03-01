@@ -82,6 +82,13 @@ schedule = TextNode(
 )
 
 
+# Список документов
+need_documents = TextNode(
+    title=kb.NEED_DOCUMENTS_BUTTON,
+    text=pension.NEED_DOCUMENTS,
+)
+
+
 # Важная информация.
 yearly_attention = TextNode(
     title=kb.YEARLY_ATTENTION_BUTTON,
@@ -134,13 +141,6 @@ month_period = KeyboardNode(
         month_attention,
         BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
-)
-
-
-# Список документов
-need_documents = TextNode(
-    title=kb.NEED_DOCUMENTS_BUTTON,
-    text=pension.NEED_DOCUMENTS,
 )
 
 
