@@ -95,7 +95,7 @@ year_period = KeyboardNode(
     text=pension.PENSION_YEAR_PERIOD,
     buttons=[
         schedule,
-        need_documents
+        need_documents,
         yearly_attention,
         BackNode(kb.BACK_BUTTON, text="Воспользуйтесь клавиатурой", level=TO_MAIN),
     ],
