@@ -45,7 +45,10 @@ async def handle_text(message: Message):
     """Handler of all text messages."""
     node = NodeDict.get_node(message.text)
     if node is None:
-        await message.answer("Couldn't recognize message text")
+        await message.answer(
+            "Внимание! Чат-бот предлагает ГОТОВЫЕ вопросы и ответы. "
+            "Не надо писать ему своих сообщений, просто выбирайте нужную кнопку."
+        )
     else:
         await handle_node(node, message)
 
