@@ -24,4 +24,3 @@
 
 ## Лицензия
 [MIT](https://github.com/bullbesh/pfr_instruction/blob/main/license.md)
-
