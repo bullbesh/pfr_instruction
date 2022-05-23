@@ -22,19 +22,6 @@
 - Иерархия построения сообщений бота - [textode](https://github.com/Masynchin/textode)
 - Облачное хранилище для автономной работы проекта - [heroku](https://heroku.com)
 
-## Установка проекта
-### Зависимости
-Для работы с ботом нужен [Poetry](https://github.com/python-poetry/poetry)
-
-Зависимости ставятся через:
-```
-poetry install
-```
-
-### Переменные окружения
-- `BOT_TOKEN` - токен Telegram бота
-
-
 ## Лицензия
 [MIT](https://github.com/bullbesh/pfr_instruction/blob/main/license.md)
 
