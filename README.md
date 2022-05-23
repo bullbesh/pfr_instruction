@@ -37,7 +37,6 @@ flowchart TD;
     PFRAppeal["Обращение в клиентскую службу ПФР"];
     MonthAttention["Полезная информация"];
 
-    Back["На главную"];
 
 
     Main --> PensionPeriod;
@@ -48,30 +47,23 @@ flowchart TD;
     PensionPeriod --> MonthPeriod;
     PensionPeriod --> YearPeriod;
     PensionPeriod --> NeedDocuments;
-    PensionPeriod --> Back;
 
     GosuslugiRegistration --> MFCRegistrarion;
     GosuslugiRegistration --> MobileBankAppRegistration;
-    GosuslugiRegistration --> Back;
 
     GosuslugiExperience --> ILSExplanation;
     GosuslugiExperience --> ILSAppealOrder;
     GosuslugiExperience --> ILSDischargeGuide;
     GosuslugiExperience --> About2002Works;
     GosuslugiExperience --> ContactInfo;
-    GosuslugiExperience --> Back;
 
     YearPeriod --> Schedule;
     YearPeriod --> NeedDocuments;
     YearPeriod --> YearlyAttention;
-    YearPeriod --> Back;
 
     MonthPeriod --> WhenApply;
     MonthPeriod --> PFRAppeal;
     MonthPeriod --> MonthAttention;
-    MonthPeriod --> Back;
-
-    Back --> Main;
     
 ```
 
