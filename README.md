@@ -10,6 +10,70 @@
 - Стаж работника предприятия
 - Сайт "Госуслуги"
 
+```mermaid
+flowchart TD;
+    Main["Приветствие"];
+    PensionPeriod["Готовлюсь к пенсии. С чего начать?"];GosuslugiRegistration["Госyслуги. Как зарегистрироваться?"];
+    GosuslugiExperience["Как узнать свой стаж на сайте Госуслуг?"];
+    ContactInfo["Куда обратиться по пенсионным вопросам?"];
+
+    YearPeriod["До пенсии остался год. Проверка документов"]
+    MonthPeriod["До пенсии остался месяц. Подача заявления"]
+    NeedDocuments["Список документов"]
+
+    MFCRegistrarion["Через МФЦ"]
+    MobileBankAppRegistration["Через мобильное приложение банка"]
+
+    ILSExplanation["Что такое Индивидуальный лицевой счёт?"];
+    ILSAppealOrder["Порядок обращения за выпиской ИЛС"];
+    ILSDischargeGuide["Как понимать выписку ИЛС?"];
+    About2002Works["Что делать, если в ИЛС нет данных о работе до 2002 года?"];
+
+    Schedule["Часы работы Фронт-офиса"];
+    YearlyAttention["Важная информация"];
+
+    WhenApply["Когда и как подать заявление через Госуслуги?"];
+    PFRAppeal["Обращение в клиентскую службу ПФР"];
+    MonthAttention["Полезная информация"];
+
+    Back["На главную"];
+
+
+    Main --> PensionPeriod;
+    Main --> GosuslugiRegistration;
+    Main --> GosuslugiExperience;
+    Main --> ContactInfo;
+
+    PensionPeriod --> MonthPeriod;
+    PensionPeriod --> YearPeriod;
+    PensionPeriod --> NeedDocuments;
+    PensionPeriod --> Back;
+
+    GosuslugiRegistration --> MFCRegistrarion;
+    GosuslugiRegistration --> MobileBankAppRegistration;
+    GosuslugiRegistration --> Back;
+
+    GosuslugiExperience --> ILSExplanation;
+    GosuslugiExperience --> ILSAppealOrder;
+    GosuslugiExperience --> ILSDischargeGuide;
+    GosuslugiExperience --> About2002Works;
+    GosuslugiExperience --> ContactInfo;
+    GosuslugiExperience --> Back;
+
+    YearPeriod --> Schedule;
+    YearPeriod --> NeedDocuments;
+    YearPeriod --> YearlyAttention;
+    YearPeriod --> Back;
+
+    MonthPeriod --> WhenApply;
+    MonthPeriod --> PFRAppeal;
+    MonthPeriod --> MonthAttention;
+    MonthPeriod --> Back;
+
+    Back --> Main
+    
+```
+
 ## Как пользоваться ботом
 Адрес бота в Telegram: [@pfrinstruction_bot](https://t.me/pfrinstruction_bot)
 
