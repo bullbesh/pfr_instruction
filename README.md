@@ -13,16 +13,17 @@
 ```mermaid
 flowchart TD;
     Main["Приветствие"];
-    PensionPeriod["Готовлюсь к пенсии. С чего начать?"];GosuslugiRegistration["Госyслуги. Как зарегистрироваться?"];
+    PensionPeriod["Готовлюсь к пенсии. С чего начать?"];
+    GosuslugiRegistration["Госyслуги. Как зарегистрироваться?"];
     GosuslugiExperience["Как узнать свой стаж на сайте Госуслуг?"];
     ContactInfo["Куда обратиться по пенсионным вопросам?"];
 
-    YearPeriod["До пенсии остался год. Проверка документов"]
-    MonthPeriod["До пенсии остался месяц. Подача заявления"]
-    NeedDocuments["Список документов"]
+    YearPeriod["До пенсии остался год. Проверка документов"];
+    MonthPeriod["До пенсии остался месяц. Подача заявления"];
+    NeedDocuments["Список документов"];
 
-    MFCRegistrarion["Через МФЦ"]
-    MobileBankAppRegistration["Через мобильное приложение банка"]
+    MFCRegistrarion["Через МФЦ"];
+    MobileBankAppRegistration["Через мобильное приложение банка"];
 
     ILSExplanation["Что такое Индивидуальный лицевой счёт?"];
     ILSAppealOrder["Порядок обращения за выпиской ИЛС"];
@@ -70,7 +71,7 @@ flowchart TD;
     MonthPeriod --> MonthAttention;
     MonthPeriod --> Back;
 
-    Back --> Main
+    Back --> Main;
     
 ```
 
