@@ -198,7 +198,7 @@ gosuslugi_registration = KeyboardNode(
 )
 
 
-# Что такое Индивидуальный Лицевой Счёт? (выписка о стаже)
+# Что такое Индивидуальный Лицевой Счёт? (выписка о стаже).
 ils_explanation = TextNode(
     title=kb.ILS_EXPLANATION_BUTTON,
     text=gosuslugi.ILS_EXPLANATION,
@@ -209,7 +209,7 @@ ils_explanation = TextNode(
 ils_discharge_guide = MultiNode(
     title=(_ := kb.ILS_DISCHARGE_GUIDE_BUTTON),
     nodes=[
-        ImageNode(_, path="pfr_instruction/images/dischange_destiny.jpg"),
+        ImageNode(_, path="pfr_instruction/images/ILSUnderstand.png"),
         TextNode(_, text=gosuslugi.ILS_DISCHARGE_GUIDE),
     ],
 )
@@ -229,10 +229,10 @@ contact_info = TextNode(
 )
 
 
-# Порядок обращения за выпиской ИЛС
+# Порядок обращения за выпиской ИЛС.
 ils_appeal_order = ImageNode(
     title=kb.ILS_APPEAL_ORDER_BUTTON,
-    path="pfr_instruction/images/bot_instruction.png",
+    path="pfr_instruction/images/OrderSearch.png",
     caption=gosuslugi.ILS_APPEAL_GUIDE,
 )
 
@@ -252,7 +252,7 @@ gosuslugi_experience = KeyboardNode(
 )
 
 
-# Начальная клавиатура
+# Начальная клавиатура.
 main_node = KeyboardNode(
     title="/start",
     text=(
