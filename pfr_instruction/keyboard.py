@@ -1,5 +1,7 @@
-"""Module containing constants and keyboards displayed by
-the bot through main.py file.
+"""Модуль клавиатуры.
+
+Содержит в себе константы кнопок, отображаемых
+ботом через файл main.py
 """
 
 BACK_BUTTON = "На главную."

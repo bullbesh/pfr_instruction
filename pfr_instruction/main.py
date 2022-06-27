@@ -1,9 +1,13 @@
-"""The main module of the project, combining all the functionality of the bot
-and displaying information to the user:
+"""Основной модуль проекта, объединяющий в себе весь функционал бота 
+и отображающий пользователю следующую информацию:
 
-- Information about pension
-- Work experience
-- Gosuslugi website
+- "Готовлюсь к пенсии. С чего начать?"
+- "Госуслуги. Как зарегистрироваться?"
+- "Как узнать свой стаж на сайте Госуслуг?"
+- "Куда обратиться за помощью?"
+
+Для удобной навигации по сообщениям бота к каждой переменной прилагается 
+комментарий.
 """
 
 import logging
@@ -42,7 +46,7 @@ dp = Dispatcher(bot, storage=storage)
 
 @dp.message_handler(lambda _: True)
 async def handle_text(message: Message):
-    """Handler of all text messages."""
+    """Обработчик всех текстовых сообщений."""
     node = NodeDict.get_node(message.text)
     if node is None:
         await message.answer(
@@ -71,7 +75,7 @@ async def handle_node(node: Node, message: Message):
 
 
 def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
-    """Create keyboard from KeyboardNode's buttons"""
+    """Создание клавиатуры с помощью кнопок KeyboardNode."""
     return ReplyKeyboardMarkup(
         [[KeyboardButton(text=node.title)] for node in node_buttons],
         resize_keyboard=True,
@@ -85,7 +89,7 @@ schedule = TextNode(
 )
 
 
-# Список документов
+# Список документов.
 need_documents = TextNode(
     title=kb.NEED_DOCUMENTS_BUTTON,
     text=pension.NEED_DOCUMENTS,
@@ -119,14 +123,14 @@ when_apply = TextNode(
 )
 
 
-# Обращение в клиентскую службу ПФР
+# Обращение в клиентскую службу ПФР.
 pfr_appeal = TextNode(
     title=kb.PFR_APPEAL_BUTTON,
     text=pension.WAYS_TO_APPLY,
 )
 
 
-# Полезная информация
+# Полезная информация.
 month_attention = TextNode(
     title=kb.MONTH_ATTENTION_BUTTON,
     text=pension.MONTH_ATTENTION,
@@ -168,19 +172,21 @@ pension_period = KeyboardNode(
 )
 
 
+# (регистрация) Через МФЦ.
 mfc_registration = TextNode(
     title=kb.MFC_REGISTRATION_BUTTON,
     text=gosuslugi.MFC_REGISTRATION,
 )
 
 
+# (регистрация) Через мобильное приложение банка.
 mobile_bank_app_registration = TextNode(
     title=kb.MOBILE_BANK_APP_REGISTRATION_BUTTON,
     text=gosuslugi.MOBILE_BANK_APP_REGISTRATION,
 )
 
 
-# ГосУслуги. Как зарегистрироваться?
+# Госуслуги. Как зарегистрироваться?
 gosuslugi_registration = KeyboardNode(
     title=kb.GOSUSLUGI_BUTTON,
     text="Выберите вариант регистрации",
@@ -192,7 +198,7 @@ gosuslugi_registration = KeyboardNode(
 )
 
 
-# Что такое Индивидуальный лицевой счёт? (выписка о стаже)
+# Что такое Индивидуальный Лицевой Счёт? (выписка о стаже)
 ils_explanation = TextNode(
     title=kb.ILS_EXPLANATION_BUTTON,
     text=gosuslugi.ILS_EXPLANATION,
@@ -231,7 +237,7 @@ ils_appeal_order = ImageNode(
 )
 
 
-# Как узнать свой стаж на сайте ГосУслуг?
+# Как узнать свой стаж на сайте Госуслуг?
 gosuslugi_experience = KeyboardNode(
     title=kb.EXPERIENCE_BUTTON,
     text="Задайте интересующий вас вопрос",
@@ -266,5 +272,5 @@ main_node = KeyboardNode(
 
 
 def main():
-    """Run bot."""
+    """Запуск бота."""
     executor.start_polling(dp, skip_updates=True)
