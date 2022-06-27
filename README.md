@@ -69,7 +69,7 @@ flowchart TD;
     MonthPeriod --> MonthAttention;
     
 ```
-**! _*В данный момент (май 2022 года) мобильное приложение GitHub не поддерживает [mermaid](https://mermaid-js.github.io/mermaid). Для ознакомления со схемой вы можете перейти в [версию GitHub для ПК](https://github.com).*_**
+**! _*В данный момент (июнь 2022 года) мобильное приложение GitHub не поддерживает [mermaid](https://mermaid-js.github.io/mermaid). Для ознакомления со схемой вы можете перейти в [версию GitHub для ПК](https://github.com).*_**
 ## Как пользоваться ботом
 Адрес бота в Telegram: [@pfrinstruction_bot](https://t.me/pfrinstruction_bot)
 
